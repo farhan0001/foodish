@@ -3,9 +3,10 @@ const User = require('../models/User')
 const { body, validationResult } = require('express-validator')
 const bcryptjs = require('bcryptjs')
 const jwt = require("jsonwebtoken")
+require('dotenv').config()
 
 const router = express.Router()
-const jwtSecret = "dsk#@HKJ5#KH$%LK^LK$LK*LKHJ@kj54"
+const jwtSecret = process.env.JWT_SECRET
 
 router.post('/createuser',
     [body('email', 'Invalid Email').isEmail(), body('name', 'Name must contain min 4 characters').isLength({ min: 4 }), body('password', 'Password must be atleast 8 characters long').isLength({ min: 8 })],
@@ -25,7 +26,17 @@ router.post('/createuser',
                 email: req.body.email,
                 password: securePassword,
                 location: req.body.location
-            }).then(res.json({ success: true }))
+            }).then((response) => {
+                const data = {
+                    user: {
+                        id: response.id
+                    }
+                }
+
+                const authToken = jwt.sign(data, jwtSecret)
+                
+                res.json({ success: true, authToken: authToken })
+            })
         }
         catch (err) {
             console.log(err)

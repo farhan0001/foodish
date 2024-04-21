@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 mongoose.set('strictQuery', true)
-const mongoURI = 'mongodb+srv://mdfarhanquamar2023:pSSbk2emfoSL5LhK@cluster1.i4ygmel.mongodb.net/FoodishDB?retryWrites=true&w=majority&appName=Cluster1'
+const mongoURI = process.env.MONGO_URI
 const mongoDB = async () => {
     await mongoose.connect(mongoURI, {useNewUrlParser : true}, async (err, result) => {
         if(err)

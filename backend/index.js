@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoDB = require('./db')
+require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -7,7 +8,7 @@ const port = process.env.PORT || 4000
 mongoDB()
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
+    res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URI)
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
