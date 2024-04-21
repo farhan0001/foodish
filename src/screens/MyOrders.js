@@ -7,7 +7,7 @@ export default function MyOrders() {
     const [orderData, setOrderData] = useState([])
 
     let fetched_order_data = async () => {
-        await fetch("http://localhost:4000/api/myorderdata", {
+        await fetch("https://foodish-service.onrender.com/api/myorderdata", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -10,7 +10,7 @@ export default function Home() {
     const [foodCat, setFoodCat] = useState([])
 
     const fetchedData = async () => {
-        const response = await fetch("http://localhost:4000/api/foodData", {
+        const response = await fetch("https://foodish-service.onrender.com/api/foodData", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
